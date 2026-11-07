@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Delayed and replacing controls</title>
+<form id="target"><h2>Form</h2></form>
+<script>
+  setTimeout(() => {
+    const form = document.querySelector('form');
+    form.insertAdjacentHTML('beforeend', `
+      <section><label>First Name</label><input type="text"></section>
+      <section><label>Gender</label><input type="radio" value="Female"><span>Female</span></section>
+      <section><label>State</label><select><option value="">Choose</option><option>India</option></select></section>
+    `);
+
+    const firstName = form.querySelector('input[type="text"]');
+    firstName.addEventListener('input', () => {
+      const replacement = firstName.cloneNode();
+      replacement.value = firstName.value;
+      firstName.replaceWith(replacement);
+    }, {once: true});
+
+    const gender = form.querySelector('input[type="radio"]');
+    gender.addEventListener('click', () => {
+      const replacement = gender.cloneNode();
+      gender.replaceWith(replacement);
+      replacement.checked = true;
+    }, {once: true});
+
+    const state = form.querySelector('select');
+    state.addEventListener('change', () => {
+      const replacement = state.cloneNode(true);
+      replacement.selectedIndex = state.selectedIndex;
+      state.replaceWith(replacement);
+    }, {once: true});
+  }, 700);
+</script>
+</html>
