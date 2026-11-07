@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Accessible-name practice form</title>
+<form>
+  <h2>Form</h2>
+  <section><input type="text" aria-label="Last Name" placeholder="Name"></section>
+  <section><span id="visible-first-name">First Name</span><input type="text" aria-labelledby="visible-first-name" placeholder="Name"></section>
+  <fieldset><legend>Gender</legend>
+    <label><input type="radio" name="choice" value="Male">Male</label>
+    <label><input type="radio" name="choice" value="Female">Female</label>
+  </fieldset>
+  <section><select aria-label="State"><option>Choose</option><option>India</option></select></section>
+</form>
+</html>
+shadow:inner-form

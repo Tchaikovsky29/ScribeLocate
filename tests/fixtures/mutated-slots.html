@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Reordered slotted practice form</title>
+<form>
+  <h2>Form</h2>
+  <adaptive-fields>
+    <section slot="region-picker"><select><option>India</option><option>Canada</option></select></section>
+    <section slot="identity-choice">
+      <input type="radio" name="variant-choice" value="M"><span>Male</span>
+      <input type="radio" name="variant-choice" value="F"><span>Female</span>
+    </section>
+    <section slot="person-entry"><div><input type="text" placeholder="Name"></div></section>
+  </adaptive-fields>
+  <section><label>Last Name</label><input type="text" placeholder="Name"></section>
+  <section><label>Country</label><select><option>India</option></select></section>
+</form>
+<script>
+  customElements.define('adaptive-fields', class extends HTMLElement {
+    connectedCallback() {
+      this.attachShadow({mode: 'open'}).innerHTML = `
+        <div><div><label>State</label><slot name="region-picker"></slot></div></div>
+        <div><section><label>Gender</label><slot name="identity-choice"></slot></section></div>
+        <div><section><label>First Name</label><div><slot name="person-entry"></slot></div></section></div>`;
+    }
+  });
+</script>
+</html>

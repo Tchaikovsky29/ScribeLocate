@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Context traversal fixture</title>
+<deep-form></deep-form>
+<frame-host></frame-host>
+<script>
+  const fields = heading => `
+    <form>
+      <h2>${heading}</h2>
+      <div><label>First Name</label><input type="text"></div>
+      <div><label>Gender</label><input type="radio" value="Female"><span>Female</span></div>
+      <div><label>State</label><select><option>Choose</option><option>India</option></select></div>
+    </form>`;
+
+  customElements.define('deep-form', class extends HTMLElement {
+    connectedCallback() {
+      this.attachShadow({mode: 'open'}).innerHTML = '<inner-form></inner-form>';
+    }
+  });
+  customElements.define('inner-form', class extends HTMLElement {
+    connectedCallback() {
+      this.attachShadow({mode: 'open'}).innerHTML = fields('Nested Target');
+    }
+  });
+  customElements.define('frame-host', class extends HTMLElement {
+    connectedCallback() {
+      const frame = document.createElement('iframe');
+      frame.srcdoc = fields('Frame Target');
+      this.attachShadow({mode: 'open'}).append(frame);
+    }
+  });
+</script>
+</html>
